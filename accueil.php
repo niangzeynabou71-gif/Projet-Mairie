@@ -87,9 +87,18 @@ $req = mysqli_query($connect, "
     <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg px-4">
         <span class="navbar-brand">🏛️ Mairie Sacré-Cœur</span>
-        <div class="ms-auto">
-            <span class="text-white me-3">👤 <?= $_SESSION['user_nom']; ?></span>
-            <a href="deconnexion.php" class="btn btn-danger logout-btn">Déconnexion</a>
+        <div class="ms-auto d-flex align-items-center">
+            <span class="text-white me-3">
+                👤 <?= htmlspecialchars($_SESSION['user_nom']); ?>
+            </span>
+
+            <a href="suivi.php" class="btn btn-warning me-2">
+                📊 Suivi
+            </a>
+
+            <a href="deconnexion.php" class="btn btn-danger logout-btn">
+                Déconnexion
+            </a>
         </div>
     </nav>
 
@@ -124,57 +133,7 @@ $req = mysqli_query($connect, "
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- TABLEAU DE SUIVI -->
-    <div class="container mt-5">
-        <div class="card p-4 shadow">
-            <h4 class="mb-4">📊 Suivi de mes demandes</h4>
-            <table class="table table-hover table-bordered text-center">
-                <thead class="table-dark">
-                    <tr>
-                        <th>ID Demande</th>
-                        <th>Nom</th>
-                        <th>Date Demande</th>
-                        <th>Date Suivi</th>
-                        <th>Statut</th>
-                        <th>PDF</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (mysqli_num_rows($query) > 0): ?>
-                        <?php while ($row = mysqli_fetch_assoc($query)): ?>
-                            <tr>
-                                <td><?= $row['id'] ?></td>
-                                <td><?= $row['nom'] ?></td>
-                                <td><?= $row['date_demande'] ?></td>
-                                <td><?= $row['date_suivi'] ?? '—' ?></td>
-                                <td>
-                                    <?php
-                                    $statut = $row['suivi_statut'] ?? 'En attente';
-                                    if ($statut == "En attente") echo "<span class='badge bg-warning'>En attente</span>";
-                                    elseif ($statut == "Validée") echo "<span class='badge bg-success'>Validée</span>";
-                                    else echo "<span class='badge bg-danger'>Rejetée</span>";
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php if ($statut == "Validée"): ?>
-                                        <a href="pdf.php?id=<?= $row['id'] ?>" class="btn btn-success btn-sm">Télécharger</a>
-                                    <?php else: ?>
-                                        <button class="btn btn-secondary btn-sm" disabled>Indisponible</button>
-                                    <?php endif; ?>
-                                </td>
-                            </tr>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="6" class="text-center">Aucune demande trouvée</td>
-                        </tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
-        </div>
-    </div>
 
 </body>
 
