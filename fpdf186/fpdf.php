@@ -1137,14 +1137,11 @@ protected function _loadfont($path)
 	include($path);
 	if(!isset($name))
 		$this->Error('Could not include font definition file: '.$path);
-	else
-	{
-		if(isset($enc))
-			$enc = strtolower($enc);
-		if(!isset($subsetted))
-			$subsetted = false;
-		return get_defined_vars();
-	}
+	if(isset($enc))
+		$enc = strtolower($enc);
+	if(!isset($subsetted))
+		$subsetted = false;
+	return get_defined_vars();
 }
 
 protected function _isascii($s)
