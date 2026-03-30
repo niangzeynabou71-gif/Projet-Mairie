@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $password = "";
-$dbname = "mairie"; // ⚠️ mets le nom exact de ta base
+$dbname = "mairie";
 
 $connect = mysqli_connect($host, $user, $password, $dbname);
 

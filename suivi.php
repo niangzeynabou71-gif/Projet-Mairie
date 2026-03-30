@@ -10,7 +10,7 @@ if (!isset($_SESSION['user'])) {
 
 $user_nom = $_SESSION['user'];
 
-// requête corrigée
+// requête pour récupérer les demandes de l'utilisateur avec le suivi
 $req = mysqli_query($connect, "
     SELECT d.id, d.nom, d.date_demande,
            s.statut, s.date_suivi
